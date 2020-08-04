@@ -1,0 +1,227 @@
+/* Notes from YouTube video
+Flexbox Tutorial (CSS): Real Layout Examples
+https://youtu.be/k32voqQhODc
+
+/******************************************************************/
+/* Form Section -goal is to extend input box to width of container.
+
+Overall container/wrapper div for entire form, 
+creates the centered location with border*/
+.container {
+	width: 500px;
+	border: .5px solid black;
+	margin: auto; /*centered*/
+	margin-top: 20px;
+}
+
+/* Container for the label and input element*/
+.form-row {
+	padding: 10px 0;
+	display: flex; /* 1) Turns this parent container into a flexbox*/
+}
+
+
+.form-row label {
+	padding-right: 10px;
+	padding-left: 10px;
+	/*By not adding flex: 1; to this element, it will remain its 
+	regular auto size.  If you add flex: 1; to this label, it would take
+	up exactly 1/2 the box, sharing width with the input box. */
+}
+
+.form-row input {
+	margin-right: 10px;/*this pulls the input box a bit away from rightside*/
+	flex: 1; /* 2)this extends the width of input box to fit 
+				.form-row container. Since it is the only flex child,
+				it will take up all available space */
+}
+/****************************************************************/
+/* Written Column section - goal to give varying width to sections
+& change order.
+
+Overall container/wrapper div for written section w/columns*/
+.column-layout {
+	max-width: 1300px;
+	background-color: slategray;
+	margin: 40px auto 0 auto;
+	line-height: 1.65;
+	padding: 20px 50px;
+/* 1) add this code below to turn container into flexbox*/
+	display: flex; 
+}
+
+/* 2) Decide on width ratio you want w/the 3 divs, see examples below */
+
+/****Example 1: this makes the 3 divs have equal widths;
+.main-column {
+	flex: 1; 
+}
+.sidebar-one {
+	flex: 1;
+}
+.sidebar-two {
+	flex: 1;
+}
+
+/****Example 2: this makes the 3 divs have widths in relation to each other;
+.main-column {
+	flex: 2; --this main column will be 2x bigger than the other 2 divs
+}
+.sidebar-one {
+	flex: 1;
+}
+.sidebar-two {
+	flex: 1;
+}
+
+/*****Example 3: this makes the 3 divs have widths in relation to each other;
+.main-column {
+	flex: 3; --this main column will be 3x bigger than the other 2 divs
+}
+.sidebar-one {
+	flex: 1;
+}
+.sidebar-two {
+	flex: 1;
+} */
+
+/* 3) Decide the order of the columns */
+.main-column {
+	flex: 3;
+	order: 2; /*  this is 2nd of 3 */
+}
+.sidebar-one {
+	flex: 1;
+	order: 1; /*  this is 1st of 3 */
+}
+.sidebar-two {
+	flex: 1;
+	order: 3; /*  this is 3rd of 3 */
+}
+/****************************************************************/
+/*3-Box section - goal is to create 3 flex boxes with margins between*/
+
+.call-outs-container {
+	max-width: 1400px;
+	margin: 40px auto 0 auto;
+/*Look for these below in @media section 
+	display: flex; /* 1) Turns this parent container into a flexbox
+	justify-content: space-between; /*Option 2: this distributes the 10% space
+	created by the flex-basis below */
+}
+
+.call-out {
+	padding: 20px; /*2) add padding and margin to the child elements */
+	margin-bottom: 20px;
+/*  flex: 1; / Option 1: Makes all 3 divs have equal width & touching*/
+	flex-basis: 30%; /* Option 2: creates 10% space to use around boxes:
+	flexbox way of specifying the width of the elements*/
+	box-sizing: border-box; /* Option 2: add this when NOT using flex:; */
+}
+/*Below only displays this way on big screens,  & min-width allows the divs
+to stack when being viewed on smaller screen*/
+@media (min-width: 900px) {
+	.call-outs-container {  /*parent container */
+		display: flex; 
+		justify-content: space-between;
+	}
+}
+
+.call-out:nth-child(1) {background-color: #c0dbe2;}
+.call-out:nth-child(2) {background-color: #cdf1c3;}
+.call-out:nth-child(3) {background-color: #ccb9da;}
+
+/****************************************************************/
+/*Flexbox for fixed item sizes - for ex: use for portfolio images
+Goal is to make 6 same size elements but then have them wrap on smaller screen */
+
+.fixed-size-container {
+	max-width: 1000px;
+	margin: 40px auto 0 auto;
+	background-color: #FFF;
+	padding: 30px 0;
+	display: flex; /*1) */
+	align-items: center; /*2) */
+	justify-content: space-around; /*3)*/
+	flex-wrap: wrap; /*4)this makes the elements wrap on smaller screen */
+}
+
+.fixed-size {
+	width: 250px;
+	height: 200px;
+	background-color: #990b47;
+	color: #FFF;
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	padding-top: 10px;
+	margin-bottom: 20px; /*This keeps the stacked rows from becoming a blob 
+	smashed together column. */
+	margin-left: 15px; /*This keeps the space between items when colapsed */
+	margin-right: 15px; /*This keeps the space between items when colapsed */
+}
+
+/****************************************************************/
+/*Centered Text - goal is to have text centered both 
+horizontally and vertically */
+
+.banner {
+	height: 400px; /*1) Height and width only on the wrapper/container */
+	max-width: 700px; /*2) */
+	margin: 40px auto 40px auto;
+	background-color: #2a2a2a;
+	display: flex; /*3) set wrapper to flex */
+}
+
+.center-me {
+	color: #FFF;
+	font-size: 50px;
+	margin: auto; /*4) W/wrapper set to flex, this margin:auto; will
+	center writing both horizontally and vertically. */
+}
+
+/****************************************************************/
+/*Create 2 columns with 1 column split evenly horizontally
+Goal is to have 1st column full height, 2nd column same height but evenly
+split 50/50 along horizontal axis. */
+
+.equal-height-container {
+	max-width: 900px;
+	margin: 50px auto;
+	display: flex; /*1) set wrapper to flex */
+}
+
+.first {
+	background-color: #FFF;
+	padding: 20px;
+	flex: 1; /* 2) This creates the 2-columns */
+}
+
+.second {
+	flex: 1; /* 2) This creates the 2-columns */
+	display: flex; /* 3) This turns this wrapper into a flex box
+	container for .second-a & .second-b */
+	flex-direction: column; /*3) used on wrappers, this changes
+	the direction from the default row setting to columns */
+}
+
+.second-a {
+	background-color: yellow;
+	flex: 1;/*3) This now divides the column equally horizontally*/
+}
+
+.second-b {
+	background-color: green;
+	flex: 1;/*3) This now divides the column equally horizontally*/
+}
+
+/****************************************************************/
+html, body {
+	background-color: purple;
+}
+
+
+
+
+
+
